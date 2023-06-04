@@ -1,71 +1,87 @@
-# Angular Setup Script README
+# Angular Tailwind Vercel starter
 
-This script automates the process of setting up a new Angular project on your local machine. It will check and install necessary dependencies, create the project structure, and optionally setup a GitHub repository and Vercel deployment.
+## Table of Contents
+- [General Info](#general-info)
+- [Prerequisites](#prerequisites)
+- [How to Run the Script](#how-to-run-the-script)
+- [Troubleshooting](#troubleshooting)
+- [FAQ](#faq)
+
+## General Info
+
+This script automates the process of setting up a new Angular Tailwind project, with the option to create a Github repository and automatically deploy on Vercel.
+
+What the script does in general:
+1. Install Angular CLI or use existing installation.
+2. Install and configure tailwindcss, postcss, autoprefixer, prettier, prettier-plugin-tailwind, husky, lint-staged.
+3. Create a new GitHub with the same name as the project (optional).
+4. Deploy project on Vercel (optional).
+
+What the script does in explicit detail:
+1. Check for Node.js and jq.
+2. Ask if the script should later create a GitHub repository for you and if so, check for GitHub CLI.
+3. If you said yes to creating a GitHub repository, ask if the script should later deploy the project on Vercel and if so, check for Vercel CLI.
+4. Check for Angular CLI installation. If found, ask if you want to proceed with the current version or install a new one. If not found, ask which version to install.
+5. Ask for the path.
+6. Create a new Angular project in the specified path with Angular CLI. 
+7. Install the following dependencies: tailwindcss, postcss, autoprefixer, prettier, prettier-plugin-tailwind, husky, lint-staged.
+8. Initialize Tailwind with: `npx tailwindcss init`.
+9. Finish tailwind config by modifying tailwind.config.js.
+10. Add prettier.config.js with the official tailwind prettier plugin.
+11. Add .prettierignore with the usual suspects.
+11. Add .vscode/settings.json and specify to use prettier as a formatter for ts and html.
+12. Create a new GitHub public repository with the same name as the project (optional).
+13. Deploy project on Vercel (optional).
+14. It is recommended to download Tailwind CSS IntelliSense extension for VSCode.
 
 ## Prerequisites
 
 You need to have the following installed:
 
-1. **Bash Shell**: Bash is a Unix shell and command language, which can be installed on any operating system.
-2. **Node.js and npm**: This is required to run the Angular CLI and manage project dependencies.
-3. **jq**: This is a lightweight and flexible command-line JSON processor.
-4. **Angular CLI**: This is a command-line interface for Angular.
-5. **GitHub CLI** (optional): This is required to create a GitHub repository for your project.
-6. **Vercel CLI** (optional): This is required to deploy your project on Vercel.
+1. **Node.js and npm**: This is required to run the Angular CLI and manage project dependencies.
+2. **jq**: This is a lightweight command-line JSON processor. Most, but not all, Linux distributions have this installed by default.
+3. **Angular CLI**: This is a command-line interface for Angular. You will have the option to install and choose the version during this script.
+4. **GitHub CLI** (optional): This is required to create a GitHub repository for your project.
+5. **Vercel CLI** (optional): This is required to deploy your project on Vercel.
 
 ## How to Run the Script
 
-1. Save the script to your local machine. You can give it any name, for example, `setup-angular.sh`.
-2. Open your terminal.
-3. Navigate to the directory where you have saved the script, using the `cd` command.
-4. Make the script executable using the following command:
+1. Clone the repository with `https://github.com/stechermichal/angular-tailwind-vercel-starter.git`.
+2. Make the script executable using the following command:
 
     ```bash
-    chmod +x setup-angular.sh
+    chmod +x angular-tailwind-vercel-starter.sh
     ```
 
 5. Run the script using the following command:
 
     ```bash
-    ./setup-angular.sh
+    ./angular-tailwind-vercel-starter.sh
     ```
-
-## Follow the Prompts
-
-When you run the script, it will guide you through the setup process by prompting you for inputs:
-
-1. The script will first check for the necessary installations - Node.js, Angular CLI, jq, GitHub CLI, and Vercel CLI.
-2. It will then ask if you want to create a GitHub repository for your project.
-3. If you answer 'yes', it will then ask if you want to deploy this project on Vercel.
-4. It will then check for Angular CLI installation. If found, it will ask if you want to proceed with the current version or install a new one.
-5. You will then be asked to enter the path and name of your new project.
-6. The script will then navigate to your specified location and create a new workspace there.
-7. The script will install the project dependencies, initialize and configure TailwindCSS, Prettier, Husky, and lint-staged.
-8. If you had chosen to create a GitHub repository, it will then initialize a git repository, commit the initial setup, and push it to GitHub.
-9. If you had chosen to deploy the project on Vercel, it will then run the Vercel command for deployment.
 
 ## Troubleshooting
 
 If you encounter any problems while running the script:
 
-1. Ensure that you have all the necessary installations and that they are up-to-date.
-2. Make sure you have internet connectivity during the setup, as the script needs to download dependencies.
-3. Ensure that the directory path you provide does not already exist.
+1. Make sure you changed the script to be executable using the `chmod` command.
+2. Make sure you have the necessary prerequisites installed. If the script fails while running, it will tell you which prerequisite is missing.
+3. Make sure you entered the path correctly. `Documents/all-projects-folder/my-new-project` The path to where the project will be created should exist, with the last directory being the name of the project, which should not exist yet, as that will be created byt Angular CLI.
 
-If the issue persists, seek help from your system administrator or an experienced colleague.
-
-Remember, this script is meant to be run in a bash shell environment. If you're using another shell (like zsh, fish, etc.), some commands may not work as expected. It's recommended to switch to bash while running this script.
+Script was tested in bash and zsh shells, but should work in other shells as well.
 
 ## FAQ
+
+**Q: Why is this script so opinionated?**  
+A: Some of that isn't entirely my fault, such as Angular CLI inexplicably forgetting that other IDEs other than VSCode exist and automatically creating .vscode folder for you. Other part is that if this script didn't do so many things, there wouldn't be much point in using it, since you could just run `ng new my-new-project` and `npx tailwindcss init` yourself. If you can think of a way to make this script less opinionated, feel free to open an issue or a pull request.
 
 **Q: Do I need to install GitHub CLI or Vercel CLI if I don't plan on using them?**  
 A: No, the script will only check for these installations if you answer 'yes' to creating a GitHub repository and deploying on Vercel.
 
 **Q: What happens if I don't have one of the prerequisites installed?**  
-A: The script will exit, and you will be provided with a message indicating which prerequisite is missing. You will need to install the missing prerequisite and run the script again.
+A: The script will exit, and you will be provided with a message indicating which prerequisite is missing. You will need to install the missing prerequisite and run the script again. No changes will be made to your system if there was a failure with pre-requisites. That is not the case for other failures, as that might happen after the some of the commands that create the project were executed.
 
 **Q: Can I run this script on any operating system?**  
-A: This script is designed to run on a Unix-like operating system with a Bash shell, such as Linux or MacOS. It may not run correctly on other operating systems like Windows, unless you are using a compatible shell such as WSL (Windows Subsystem for Linux).
+A: This script is designed to run on a Unix-like operating system, such as Linux or MacOS. It will not run on Windows, unless you are using a compatible shell such as WSL.
 
 **Q: I encountered a problem while running the script. How can I debug it?**  
-A: The script is designed to provide informative messages if something goes wrong. Check these messages for clues about what went wrong. If you're still having trouble, you may wish to consult with a more experienced colleague or seek help online.
+A: Aside from checking the terminal for error messages, common point of failure might be problems inside the github or vercel CLIs, such as not being logged in, or entering the path in a different format than outlined in the Troubleshooting section.
