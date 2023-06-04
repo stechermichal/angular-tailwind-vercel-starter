@@ -113,7 +113,7 @@ module.exports = { content: ["./src/**/*.{html,ts}"], theme: { extend: {} }, plu
 EOL
 
 cat >prettier.config.js <<EOL
-module.exports = { plugins: [require('prettier-plugin-tailwindcss')], trailingComma: 'es5', tabWidth: 2, semi: false, singleQuote: true, pluginSearchDirs: false, }
+module.exports = { plugins: [require('prettier-plugin-tailwindcss')]}
 EOL
 
 echo -e "node_modules\n.gitignore\n*.gitignore\nnode_modules\n*.min.js\n.angular" >.prettierignore
